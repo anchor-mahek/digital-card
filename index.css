@@ -15,20 +15,27 @@
     /* Overlay */
     .overlay{position:relative;inset:0;min-height:100vh;padding:28px 20px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;text-align:center}
 
-    .text-block {
-  width: 100%;
-  text-align: center;  /* ensures everything inside is centered */
-   }
-
-    /* Title Subtitle */
-    .title{text-align:center; font-size:31px;letter-spacing:1px;text-shadow:0 8px 30px rgba(0,0,0,0.6);margin-top:18px;animation:fadeSlide 1s ease-out both;font-family:'Poppins', sans-serif;font-weight:800;color:#ffd166}
+    /* Title final */
+    .title{text-align:center;font-size:35px;letter-spacing:1px;text-shadow:0 8px 30px rgba(0,0,0,0.6);margin-top:18px;animation:fadeSlide 1s ease-out both;font-family:'Poppins', sans-serif;font-weight:800;color:#ffd166}
     .subtitle {
-            text-align:center
-            color: #6b7280;
+            text-align:center;
+            color: #fcfdfd;
             font-size: 16px;
-            font-weight: 400;
+            font-weight: 500;
         }
-    .heroline{color: #010c16; text-align:center; font-size: 14px; font-style: italic; margin-bottom: 12px;}        
+        
+    .heroline {
+        color: #640909;
+        text-align: center;
+        font-size: 14px;
+        font-style: italic;
+        font-weight: 400;
+        margin-top: 0px;
+        margin-bottom: 0px;
+        text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    }
+
+
     @keyframes fadeSlide{0%{opacity:0;transform:translateY(-24px) scale(.95)}100%{opacity:1;transform:translateY(0) scale(1)}}
 
     /* Chips */
@@ -37,8 +44,10 @@
     .chips-col.right{align-items:flex-end}
     .chip{background:rgba(255,255,255,0.9);color:#111;padding:8px 14px;border-radius:999px;font-weight:700;box-shadow:0 6px 18px rgba(0,0,0,0.12)}
 
+
+    
     /* Icons */
-    .icons{display:flex;gap:20px;justify-content:center;margin:75px 0;z-index:3}
+    .icons{display:flex;gap:20px;justify-content:center;margin-top: 10px;margin-bottom:22px;z-index:3}
     .icon{display:flex;flex-direction:column;align-items:center;text-decoration:none;color:#fff;font-weight:600}
-    .icon img{width:48px;height:48px;border-radius:10px;display:block;margin-bottom:6px}
+    .icon img{width:40px;height:40px;border-radius:10px;display:block;margin-bottom:25px}
   
