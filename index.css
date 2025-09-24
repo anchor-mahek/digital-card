@@ -39,7 +39,7 @@
     @keyframes fadeSlide{0%{opacity:0;transform:translateY(-24px) scale(.95)}100%{opacity:1;transform:translateY(0) scale(1)}}
 
     /* Chips */
-    .chips-wrap{width:100%;max-width:980px;display:flex;justify-content:space-between;gap:22px;margin-top:12vh;z-index:3}
+    .chips-wrap{width:100%;max-width:980px;display:flex;justify-content:space-between;gap:22px;margin-top:16vh;z-index:3}
     .chips-col{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
     .chips-col.right{align-items:flex-end}
     .chip{background:rgba(255,255,255,0.9);color:#111;padding:8px 14px;border-radius:999px;font-weight:700;box-shadow:0 6px 18px rgba(0,0,0,0.12)}
@@ -51,4 +51,5 @@
     .icon{display:flex;flex-direction:column;align-items:center;text-decoration:none;color:#fff;font-weight:600}
     .icon img{width:40px;height:40px;border-radius:10px;display:block;margin-bottom:25px}
   
+
 
