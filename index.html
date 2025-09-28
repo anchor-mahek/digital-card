@@ -3,83 +3,543 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Anchor Mahek</title>
-  <link rel="stylesheet" href="index.css">
+  <title>Anchor Mahek — Professional Anchor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* CSS Reset and Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800&display=swap" rel="stylesheet">
+    body {
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* Background Styles */
+    .background-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .blurred-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      /* backdrop-filter: blur(2px); */
+      background: rgba(0, 0, 0, 0.3);
+      z-index: 1;
+    }
+
+    .main-bg {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .slideshow {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .slideshow img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .slideshow img.active {
+      opacity: 1;
+    }
+
+    .slideshow img.fit {
+      object-fit: contain;
+      background: #000;
+    }
+
+    .top-mask {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, transparent 100%);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* Main Content */
+    .content {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem 200px; /* Extra padding at bottom for buttons */
+    }
+    
+    .interactive-boxes {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      width: 100%;
+      max-width: 400px;
+      padding: 0 1rem;
+      width: 100%;
+      max-width: 400px;
+      margin-top: 2rem;
+      margin-right: auto;
+      padding-left: 1rem;
+    }
+
+    /* Header Styles */
+    .header {
+      text-align: center;
+      margin-bottom: 3rem;
+      margin-top: 2rem;
+    }
+
+    .title {
+      font-size: 3rem;
+      font-weight: 700;
+      color: white;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.9);
+      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+      letter-spacing: 0.05em;
+    }
+
+    /* Enhanced Interactive Boxes */
+
+    .interactive-box {
+      background: rgba(30, 58, 95, 0.95);
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 0;
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+      display: block;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Hover and Focus States */
+    .interactive-box:hover {
+      transform: translateY(-2px);
+      background: rgba(40, 78, 125, 0.98);
+      border-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .interactive-box:focus {
+      outline: 3px solid rgba(74, 144, 226, 0.6);
+      outline-offset: 2px;
+    }
+
+    .interactive-box:active {
+      transform: translateY(0px);
+      transition: transform 0.1s;
+    }
+
+    /* Button Content */
+    .box-content {
+      padding: 1.2rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    /* Services Box Specific Styles */
+    .services-box {
+      background: none;
+      padding: 0;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    .box-header {
+      background: rgba(30, 58, 95, 0.95);
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    
+    .box-header span:first-child {
+      flex-grow: 1;
+      text-align: center;
+      margin-right: -24px; /* Offset the caret width */
+    }
+
+    .box-header:hover {
+      transform: translateY(-2px);
+      background: rgba(40, 78, 125, 0.98);
+      border-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .box-header:focus {
+      outline: 3px solid rgba(74, 144, 226, 0.6);
+      outline-offset: 2px;
+    }
+
+    .box-header:active {
+      transform: translateY(0px);
+      transition: transform 0.1s;
+    }
+
+    .caret {
+      font-size: 1.2rem;
+      font-weight: 700;
+      transition: transform 0.3s ease;
+      transform: rotate(180deg);
+    }
+
+    .box-header[aria-expanded="true"] .caret {
+      transform: rotate(0deg);
+    }
+
+    /* Services Content */
+    .services-content {
+      background: rgba(25, 48, 80, 0.98);
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      border-top: none;
+      border-radius: 0 0 16px 16px;
+      padding: 1.5rem;
+      margin-top: -2px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      max-height: 360px; /* limit height */
+      overflow-y: auto; /* enable scrolling */
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: 1fr; /* force single column */
+      gap: 0.8rem;
+    }
+
+    .service {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 0.8rem 1rem;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      letter-spacing: 0.01em;
+    }
+
+    .service:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: scale(1.02);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Expanded State */
+    .services-box.expanded .box-header {
+      border-radius: 16px 16px 0 0;
+      border-bottom-color: transparent;
+    }
+
+    /* CTA Box Specific Styles */
+    .cta-box {
+      position: relative;
+    }
+
+    .availability,.whatsapp {
+      background: rgba(34, 139, 34, 0.95);
+      border-color: rgba(144, 238, 144, 0.3);
+    }
+
+    .availability:hover,.whatsapp:hover{
+      background: rgba(44, 159, 44, 0.98);
+      border-color: rgba(144, 238, 144, 0.5);
+    }
+
+
+    /* Subtle Animations */
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .interactive-box {
+      animation: slideIn 0.6s ease forwards;
+    }
+
+    .interactive-box:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+
+    .interactive-box:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .interactive-box:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 480px) {
+      .title {
+        font-size: 2.5rem;
+      }
+      
+      .subtitle {
+        font-size: 1.1rem;
+      }
+      
+      .interactive-boxes {
+        max-width: 350px;
+        gap: 0.8rem;
+      }
+      
+      .box-content {
+        padding: 1rem 1.2rem;
+        font-size: 0.95rem;
+      }
+      
+      .box-header {
+        padding: 1rem 1.2rem;
+        font-size: 0.95rem;
+      }
+      
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* High contrast mode support */
+    @media (prefers-contrast: high) {
+      .interactive-box {
+        border-width: 3px;
+      }
+    }
+
+    /* Reduced motion support */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
 </head>
 <body>
-  <!-- Slideshow -->
-  <div class="slideshow" id="slideshow">
-    
-    <img src="coorporate.jpg" class="fit" alt="slide-3">
-    <!-- <img src="party.jpg" class="fit" alt="slide-3"> -->
-    <img src="red.jpg" class="fit" alt="slide-3">
-    <<img src="party2.jpg"  alt="slide-1">
-    <img src="udaan.jpg"  alt="slide-2"> 
-    <img src="orientation.jpg" class="active" alt="slide-4">
-    <img src="one_min.jpg"  alt="slide-5">
-    <img src="BG.jpg"  alt="slide-6">
+  <!-- Background -->
+  <div class="background-container">
+    <div class="blurred-bg"></div>
+    <div class="main-bg">
+      <div class="slideshow" id="slideshow">
+        <img src="onevertical (2).jpg" alt="Event 1">
+        <img src="onevertical (3).jpg" alt="Event 2">
+        <img src="coorporate.jpg" class="fit" alt="Corporate Event">
+        <img src="orientation.jpg" class="active" alt="Orientation Event">
+        <img src="onevertical (1).jpg" alt="Event 3">
+        <img src="BG.jpg" alt="Background">
+      </div>
+    </div>
+  </div>
+  <!-- Top mask to keep header over a clean background and fade into images -->
+  <div class="top-mask" aria-hidden="true"></div>
+
+  <!-- Main Content -->
+  <div class="content">
+    <!-- Header with Name -->
+    <header class="header">
+      <h1 class="title">Anchor Mahek</h1>
+      <h2 class="subtitle">Professional Anchor</h2>
+    </header>
+
+    <!-- Interactive Boxes Container -->
+    <div class="interactive-boxes">
+      <!-- Services Box -->
+      <div class="interactive-box services-box">
+        <button class="box-header" aria-expanded="false" aria-controls="services-content" aria-label="Toggle services list">
+          <span>Events I Host</span>
+          <span class="caret">▲</span>
+        </button>
+        <div id="services-content" class="services-content" hidden>
+          <div class="services-grid">
+            <div class="service">Corporate</div>
+            <div class="service">Wedding</div>
+            <div class="service">Social gatherings</div>
+            <div class="service">Birthday parties</div> 
+            <div class="service">Anniversary celebrations</div>
+            <div class="service">Baby Shower</div>
+            <div class="service">Engagement</div>
+            <div class="service">Haldi</div>
+            <div class="service">Mehendi</div>
+            <div class="service">Sangeet</div>
+            <div class="service">Reception</div>
+            <div class="service">& More</div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Check Availability Box -->
+      <a href="https://tally.so/r/wAZRb0" class="interactive-box cta-box availability" aria-label="Check availability via form">
+        <div class="box-content">
+          <span>Check Availability</span>
+        </div>
+      </a>
+
+      <!-- WhatsApp Box -->
+      <a href="https://wa.me/917984830023" target="_blank" rel="noopener noreferrer" class="interactive-box cta-box whatsapp" aria-label="Message on WhatsApp">
+        <div class="box-content">
+          <span>Contact on WhatsApp</span>
+        </div>
+      </a>
+    </div>
   </div>
 
-
-  <div class="fade-mask"></div>
-
-
-  
-    <h1 class="title">Anchor Mahek</h1>
-    <h3 class="subtitle">Professional Anchor</h3>
-  <div class="overlay">
-    <!-- Chips -->
-    <div class="chips-wrap">
-      <div class="chips-col left">
-        <div class="chip">Corporate</div>
-        <div class="chip">Social</div>
-        <div class="chip">Birthday</div>
-        <div class="chip">Anniversary</div>
-        <div class="chip">Baby Shower</div>
-      </div>
-      <div class="chips-col right">
-        <div class="chip">Engagement</div>
-        <div class="chip">Haldi</div>
-        <div class="chip">Mehendi</div>
-        <div class="chip">Sangeet</div>
-        <div class="chip">Reception</div>
-      </div>
-    </div>
-    
-    <!-- Icons -->
-     <div class="parent">
-      <div class="heroline"> To make your occasions truly WOW, contact me NOW!</div>
-      <div class="icons">
-      <a class="icon" href="tel:7984830023"><img src="https://img.icons8.com/fluency/96/000000/phone.png" alt="phone">Call</a>
-      <a class="icon" href="https://wa.me/917984830023" target="_blank"><img src="https://img.icons8.com/color/96/000000/whatsapp--v1.png" alt="whatsapp">WhatsApp</a>
-      <a class="icon" href="mailto:anchormahek@gmail.com"><img src="https://img.icons8.com/fluency/96/000000/new-post.png" alt="mail">Mail</a>
-      <a class="icon" href="https://www.instagram.com/anchor_mahek?igsh=MWg5OWFiYXdsNnhvdg==" target="_blank"><img src="https://img.icons8.com/fluency/96/000000/instagram-new.png" alt="instagram">Instagram</a>
-    </div>
-     </div>
-
-
   <script>
-    // slideshow rotation
-    const slides = document.querySelectorAll('.slideshow img');
-    let idx = 0;
-    setInterval(()=>{
-      slides[idx].classList.remove('active');
-      idx = (idx+1) % slides.length;
-      slides[idx].classList.add('active');
-    }, 3000);
+    // Wait for the DOM to be fully loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      // Slideshow functionality
+      const slides = document.querySelectorAll('.slideshow img');
+      let idx = 0;
+      
+      // Only start slideshow if there are slides
+      if (slides.length > 0) {
+        setInterval(() => {
+          slides[idx].classList.remove('active');
+          idx = (idx + 1) % slides.length;
+          slides[idx].classList.add('active');
+        }, 3000);
+      }
+
+      // Toggle services box
+      const servicesButton = document.querySelector('.box-header');
+      const servicesBox = document.querySelector('.services-box');
+      const servicesContent = document.getElementById('services-content');
+
+      if (servicesButton && servicesContent) {
+        // Initialize hidden state
+        servicesContent.hidden = true;
+        
+        servicesButton.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          const isExpanded = servicesButton.getAttribute('aria-expanded') === 'true';
+          const newExpandedState = !isExpanded;
+          
+          servicesButton.setAttribute('aria-expanded', newExpandedState);
+          servicesContent.hidden = !newExpandedState;
+          
+          // Toggle the expanded class for styling
+          servicesBox.classList.toggle('expanded', newExpandedState);
+        });
+
+        // Handle keyboard navigation
+        servicesButton.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            servicesButton.click();
+          }
+        });
+
+        // Close when clicking outside
+        document.addEventListener('click', (e) => {
+          if (!servicesBox.contains(e.target)) {
+            servicesButton.setAttribute('aria-expanded', 'false');
+            servicesContent.hidden = true;
+            servicesBox.classList.remove('expanded');
+          }
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && servicesButton.getAttribute('aria-expanded') === 'true') {
+            servicesButton.setAttribute('aria-expanded', 'false');
+            servicesContent.hidden = true;
+            servicesBox.classList.remove('expanded');
+            servicesButton.focus();
+          }
+        });
+      }
+
+      // Add focus management for better keyboard navigation
+      const interactiveElements = document.querySelectorAll('.interactive-box, .box-header');
+      interactiveElements.forEach(element => {
+        element.addEventListener('focus', () => {
+          element.style.outline = '3px solid rgba(74, 144, 226, 0.8)';
+          element.style.outlineOffset = '2px';
+        });
+        
+        element.addEventListener('blur', () => {
+          element.style.outline = '';
+          element.style.outlineOffset = '';
+        });
+      });
+    });
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
